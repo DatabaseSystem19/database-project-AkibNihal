@@ -171,3 +171,19 @@ FROM BILL b1
 JOIN 
 BILL b2 
 ON b1.roomCharge=b2.roomCharge;
+
+
+
+--Retrieve the appointment details along with the associated doctor and patient information from the view.
+
+CREATE OR REPLACE VIEW AppointmentDetails AS
+SELECT A.doctorId, D.name AS doctorName, P.name AS patientName, A.appointmentDate, B.doctorCharge, B.roomCharge
+FROM APPOINTMENT A
+JOIN DOCTOR D ON A.doctorId = D.doctorId
+JOIN PATIENT P ON A.patientId = P.patientId
+JOIN BILL B ON A.patientId = B.patientId;
+
+
+-- once created this view can be used like regular table
+SELECT *
+FROM AppointmentDetails;
